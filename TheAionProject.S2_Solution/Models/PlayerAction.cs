@@ -9,7 +9,7 @@ namespace TheAionProject
     /// <summary>
     /// enum of all possible player actions
     /// </summary>
-    public enum TravelerAction
+    public enum PlayerAction
     {
         None,
         MissionSetup,
@@ -20,10 +20,10 @@ namespace TheAionProject
         PutDownItem,
         PutDownTreasure,
         Travel,
-        TravelerInfo,
-        TravelerInventory,
-        TravelerTreasure,
-        TravelerLocationsVisited,
+        PlayerInfo,
+        PlayerInventory,
+        PlayerTreasure,
+        PlayerLocationsVisited,
         ListSpaceTimeLocations,
         ListItems,
         ListTreasures,

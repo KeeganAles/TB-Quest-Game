@@ -26,7 +26,7 @@ namespace TheAionProject
         //
         // declare game objects for the ConsoleView object to use
         //
-        Traveler _gameTraveler;
+        Player _gamePlayer;
         Universe _gameUniverse;
 
         ViewStatus _viewStatus;
@@ -42,9 +42,9 @@ namespace TheAionProject
         /// <summary>
         /// default constructor to create the console view objects
         /// </summary>
-        public ConsoleView(Traveler gameTraveler, Universe gameUniverse)
+        public ConsoleView(Player gamePlayer, Universe gameUniverse)
         {
-            _gameTraveler = gameTraveler;
+            _gamePlayer = gamePlayer;
             _gameUniverse = gameUniverse;
 
             _viewStatus = ViewStatus.TravelerInitialization;
@@ -92,9 +92,9 @@ namespace TheAionProject
         /// get a action menu choice from the user
         /// </summary>
         /// <returns>action menu choice</returns>
-        public TravelerAction GetActionMenuChoice(Menu menu)
+        public PlayerAction GetActionMenuChoice(Menu menu)
         {
-            TravelerAction choosenAction = TravelerAction.None;
+            PlayerAction choosenAction = PlayerAction.None;
             Console.CursorVisible = false;
 
             //
@@ -214,6 +214,22 @@ namespace TheAionProject
         }
 
         /// <summary>
+        /// get a character race value from the user
+        /// </summary>
+        /// <returns>character race value</returns>
+        public Player.PlayerGender GetGender()
+        {
+            Player.PlayerGender gender;
+
+
+            Enum.TryParse<Player.PlayerGender>(Console.ReadLine(), out gender);
+
+
+
+            return gender;
+        }
+
+        /// <summary>
         /// display splash screen
         /// </summary>
         /// <returns>player chooses to play</returns>
@@ -229,15 +245,15 @@ namespace TheAionProject
 
 
             Console.SetCursorPosition(0, 10);
-            string tabSpace = new String(' ', 35);
-            Console.WriteLine(tabSpace + @" _____ _              ___  _               ______          _           _   ");
-            Console.WriteLine(tabSpace + @"|_   _| |            / _ \(_)              | ___ \        (_)         | |  ");
-            Console.WriteLine(tabSpace + @"  | | | |__   ___   / /_\ \_  ___  _ __    | |_/ _ __ ___  _  ___  ___| |_ ");
-            Console.WriteLine(tabSpace + @"  | | | '_ \ / _ \  |  _  | |/ _ \| '_ \   |  __| '__/ _ \| |/ _ \/ __| __|");
-            Console.WriteLine(tabSpace + @"  | | | | | |  __/  | | | | | (_) | | | |  | |  | | | (_) | |  __| (__| |_ ");
-            Console.WriteLine(tabSpace + @"  \_/ |_| |_|\___|  \_| |_|_|\___/|_| |_|  \_|  |_|  \___/| |\___|\___|\__|");
-            Console.WriteLine(tabSpace + @"                                                         _/ |              ");
-            Console.WriteLine(tabSpace + @"                                                        |__/             ");
+            string tabSpace = new String(' ', 15);
+            Console.WriteLine(tabSpace + @".___________. __    __   _______      ______      __    __       ___       __  ___  _______ .__   __.  __  .__   __.   _______ ");
+            Console.WriteLine(tabSpace + @"|           ||  |  |  | |   ____|    /  __  \    |  |  |  |     /   \     |  |/  / |   ____||  \ |  | |  | |  \ |  |  /  _____|");
+            Console.WriteLine(tabSpace + @"`---|  |----`|  |__|  | |  |__      |  |  |  |   |  |  |  |    /  ^  \    |  '  /  |  |__   |   \|  | |  | |   \|  | |  |  __  ");
+            Console.WriteLine(tabSpace + @"    |  |     |   __   | |   __|     |  |  |  |   |  |  |  |   /  /_\  \   |    <   |   __|  |  . `  | |  | |  . `  | |  | |_ | ");
+            Console.WriteLine(tabSpace + @"    |  |     |  |  |  | |  |____    |  `--'  '--.|  `--'  |  /  _____  \  |  .  \  |  |____ |  |\   | |  | |  |\   | |  |__| | ");
+            Console.WriteLine(tabSpace + @"    |__|     |__|  |__| |_______|    \_____\_____\\______/  /__/     \__\ |__|\__\ |_______||__| \__| |__| |__| \__|  \______| ");
+            Console.WriteLine(tabSpace + @"                                                                                                                               ");
+            Console.WriteLine(tabSpace + @"                                                                         ");
 
             Console.SetCursorPosition(80, 25);
             Console.Write("Press any key to continue or Esc to exit.");
@@ -304,9 +320,9 @@ namespace TheAionProject
             Console.ForegroundColor = ConsoleTheme.MenuForegroundColor;
             int topRow = ConsoleLayout.MenuBoxPositionTop + 3;
 
-            foreach (KeyValuePair<char, TravelerAction> menuChoice in menu.MenuChoices)
+            foreach (KeyValuePair<char, PlayerAction> menuChoice in menu.MenuChoices)
             {
-                if (menuChoice.Value != TravelerAction.None)
+                if (menuChoice.Value != PlayerAction.None)
                 {
                     string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.Value.ToString());
                     Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
@@ -398,7 +414,7 @@ namespace TheAionProject
                 //
                 int startingRow = ConsoleLayout.StatusBoxPositionTop + 3;
                 int row = startingRow;
-                foreach (string statusTextLine in Text.StatusBox(_gameTraveler, _gameUniverse))
+                foreach (string statusTextLine in Text.StatusBox(_gamePlayer, _gameUniverse))
                 {
                     Console.SetCursorPosition(ConsoleLayout.StatusBoxPositionLeft + 3, row);
                     Console.Write(statusTextLine);
@@ -479,9 +495,9 @@ namespace TheAionProject
         /// get the player's initial information at the beginning of the game
         /// </summary>
         /// <returns>traveler object with all properties updated</returns>
-        public Traveler GetInitialTravelerInfo()
+        public Player GetInitialPlayerInfo()
         {
-            Traveler traveler = new Traveler();
+            Player player = new Player();
 
             //
             // intro
@@ -492,30 +508,55 @@ namespace TheAionProject
             //
             // get traveler's name
             //
-            DisplayGamePlayScreen("Mission Initialization - Name", Text.InitializeMissionGetTravelerName(), ActionMenu.MissionIntro, "");
+            DisplayGamePlayScreen("Mission Initialization - Name", Text.InitializeMissionGetPlayerName(), ActionMenu.MissionIntro, "");
             DisplayInputBoxPrompt("Enter your name: ");
-            traveler.Name = GetString();
+            player.Name = GetString();
 
             //
             // get traveler's age
             //
-            DisplayGamePlayScreen("Mission Initialization - Age", Text.InitializeMissionGetTravelerAge(traveler.Name), ActionMenu.MissionIntro, "");
-            int gameTravelerAge;
+            DisplayGamePlayScreen("Mission Initialization - Age", Text.InitializeMissionGetPlayerAge(player.Name), ActionMenu.MissionIntro, "");
+            int gamePlayerAge;
 
-            GetInteger($"Enter your age {traveler.Name}: ", 0, 125, out gameTravelerAge);
-            traveler.Age = gameTravelerAge;
+            GetInteger($"Enter your age {player.Name}: ", 0, 125, out gamePlayerAge);
+            player.Age = gamePlayerAge;
 
             //
             // get traveler's race
             //
-            DisplayGamePlayScreen("Mission Initialization - Race", Text.InitializeMissionGetTravelerRace(traveler), ActionMenu.MissionIntro, "");
-            DisplayInputBoxPrompt($"Enter your race {traveler.Name}: ");
-            traveler.Race = GetRace();
+            DisplayGamePlayScreen("Mission Initialization - Race", Text.InitializeMissionGetPlayerRace(player), ActionMenu.MissionIntro, "");
+            DisplayInputBoxPrompt($"Enter your race {player.Name}: ");
+            player.Race = GetRace();
+
+            //
+            // Get traveler's gender
+            //
+            DisplayGamePlayScreen("Mission Initialization - Gender", Text.InitializeMissionGetPlayerGender(player.Name), ActionMenu.MissionIntro, "");
+            DisplayInputBoxPrompt("Enter your gender: ");
+
+            Player.PlayerGender theirGender;
+            theirGender = GetGender();
+
+
+            if (theirGender == Player.PlayerGender.Male)
+            {
+                // Sets travelers gender to true for male
+                player.Gender = true;
+            }
+            else if (theirGender == Player.PlayerGender.Female)
+            {
+                // Sets travelers gender to false for female
+                player.Gender = false;
+            }
+            else
+            {
+                player.Gender = true;
+            }
 
             //
             // echo the traveler's info
             //
-            DisplayGamePlayScreen("Mission Initialization - Complete", Text.InitializeMissionEchoTravelerInfo(traveler), ActionMenu.MissionIntro, "");
+            DisplayGamePlayScreen("Mission Initialization - Complete", Text.InitializeMissionEchoPlayerInfo(player), ActionMenu.MissionIntro, "");
             GetContinueKey();
 
             // 
@@ -523,26 +564,26 @@ namespace TheAionProject
             //
             _viewStatus = ViewStatus.PlayingGame;
 
-            return traveler;
+            return player;
         }
 
         #region ----- display responses to menu action choices -----
 
         public void DisplayTravelerInfo()
         {
-            SpaceTimeLocation currentSpaceTimeLocation = _gameUniverse.GetSpaceTimeLocationById(_gameTraveler.SpaceTimeLocationID);
-            DisplayGamePlayScreen("Traveler Information", Text.TravelerInfo(_gameTraveler, currentSpaceTimeLocation), ActionMenu.MainMenu, "");
+            SpaceTimeLocation currentSpaceTimeLocation = _gameUniverse.GetSpaceTimeLocationById(_gamePlayer.SpaceTimeLocationID);
+            DisplayGamePlayScreen("Traveler Information", Text.PlayerInfo(_gamePlayer, currentSpaceTimeLocation), ActionMenu.MainMenu, "");
         }
 
         public void DisplayCurrentLocationInfo()
         {
-            SpaceTimeLocation currentSpaceTimeLocation = _gameUniverse.GetSpaceTimeLocationById(_gameTraveler.SpaceTimeLocationID);
+            SpaceTimeLocation currentSpaceTimeLocation = _gameUniverse.GetSpaceTimeLocationById(_gamePlayer.SpaceTimeLocationID);
             DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(currentSpaceTimeLocation), ActionMenu.MainMenu, "");
         }
 
         public void DisplayLookAround()
         {
-            SpaceTimeLocation currentSpaceTimeLocation = _gameUniverse.GetSpaceTimeLocationById(_gameTraveler.SpaceTimeLocationID);
+            SpaceTimeLocation currentSpaceTimeLocation = _gameUniverse.GetSpaceTimeLocationById(_gamePlayer.SpaceTimeLocationID);
             DisplayGamePlayScreen("Current Location", Text.LookAround(currentSpaceTimeLocation), ActionMenu.MainMenu, "");
         }
 
@@ -551,14 +592,14 @@ namespace TheAionProject
             int spaceTimeLocationId = 0;
             bool validSpaceTimeLocationId = false;
 
-            DisplayGamePlayScreen("Travel to a New Space-Time Location", Text.Travel(_gameTraveler, _gameUniverse.SpaceTimeLocations), ActionMenu.MainMenu, "");
+            DisplayGamePlayScreen("Travel to a New Space-Time Location", Text.Travel(_gamePlayer, _gameUniverse.SpaceTimeLocations), ActionMenu.MainMenu, "");
 
             while (!validSpaceTimeLocationId)
             {
                 //
                 // get an integer from the player
                 //
-                GetInteger($"Enter your new location {_gameTraveler.Name}: ", 1, _gameUniverse.GetMaxSpaceTimeLocationId(), out spaceTimeLocationId);
+                GetInteger($"Enter your new location {_gamePlayer.Name}: ", 1, _gameUniverse.GetMaxSpaceTimeLocationId(), out spaceTimeLocationId);
 
                 //
                 // validate integer as a valid space-time location id and determine accessibility
@@ -590,7 +631,7 @@ namespace TheAionProject
             // generate a list of space time locations that have been visited
             //
             List<SpaceTimeLocation> visitedSpaceTimeLocations = new List<SpaceTimeLocation>();
-            foreach (int spaceTimeLocationId in _gameTraveler.SpaceTimeLocationsVisited)
+            foreach (int spaceTimeLocationId in _gamePlayer.SpaceTimeLocationsVisited)
             {
                 visitedSpaceTimeLocations.Add(_gameUniverse.GetSpaceTimeLocationById(spaceTimeLocationId));
             }

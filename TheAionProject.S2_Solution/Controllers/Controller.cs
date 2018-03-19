@@ -14,7 +14,7 @@ namespace TheAionProject
         #region FIELDS
 
         private ConsoleView _gameConsoleView;
-        private Traveler _gameTraveler;
+        private Player _gamePlayer;
         private Universe _gameUniverse;
         private SpaceTimeLocation _currentLocation;
         private bool _playingGame;
@@ -50,9 +50,9 @@ namespace TheAionProject
         /// </summary>
         private void InitializeGame()
         {
-            _gameTraveler = new Traveler();
+            _gamePlayer = new Player();
             _gameUniverse = new Universe();
-            _gameConsoleView = new ConsoleView(_gameTraveler, _gameUniverse);
+            _gameConsoleView = new ConsoleView(_gamePlayer, _gameUniverse);
             _playingGame = true;
 
             Console.CursorVisible = false;
@@ -63,7 +63,7 @@ namespace TheAionProject
         /// </summary>
         private void ManageGameLoop()
         {
-            TravelerAction travelerActionChoice = TravelerAction.None;
+            PlayerAction travelerActionChoice = PlayerAction.None;
 
             //
             // display splash screen
@@ -92,7 +92,7 @@ namespace TheAionProject
             //
             // prepare game play screen
             //
-            _currentLocation = _gameUniverse.GetSpaceTimeLocationById(_gameTraveler.SpaceTimeLocationID);
+            _currentLocation = _gameUniverse.GetSpaceTimeLocationById(_gamePlayer.SpaceTimeLocationID);
             _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(_currentLocation), ActionMenu.MainMenu, "");
 
             //
@@ -115,23 +115,26 @@ namespace TheAionProject
                 //
                 switch (travelerActionChoice)
                 {
-                    case TravelerAction.None:
+                    case PlayerAction.None:
                         break;
 
-                    case TravelerAction.TravelerInfo:
+                    case PlayerAction.PlayerInfo:
                         _gameConsoleView.DisplayTravelerInfo();
                         break;
 
-                    case TravelerAction.LookAround:
+                    case PlayerAction.LookAround:
                         _gameConsoleView.DisplayLookAround();
                         break;
 
-                    case TravelerAction.Travel:
+                    case PlayerAction.Travel:
+                        // Update accessibility
+                        UpdateAccessibility();
+
                         //
                         // get new location choice and update the current location property
                         //                        
-                        _gameTraveler.SpaceTimeLocationID = _gameConsoleView.DisplayGetNextSpaceTimeLocation();
-                        _currentLocation = _gameUniverse.GetSpaceTimeLocationById(_gameTraveler.SpaceTimeLocationID);
+                        _gamePlayer.SpaceTimeLocationID = _gameConsoleView.DisplayGetNextSpaceTimeLocation();
+                        _currentLocation = _gameUniverse.GetSpaceTimeLocationById(_gamePlayer.SpaceTimeLocationID);
 
                         //
                         // set the game play screen to the current location info format
@@ -139,15 +142,15 @@ namespace TheAionProject
                         _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(_currentLocation), ActionMenu.MainMenu, "");
                         break;
 
-                    case TravelerAction.TravelerLocationsVisited:
+                    case PlayerAction.PlayerLocationsVisited:
                         _gameConsoleView.DisplayLocationsVisited();
                           break;
 
-                    case TravelerAction.ListSpaceTimeLocations:
+                    case PlayerAction.ListSpaceTimeLocations:
                         _gameConsoleView.DisplayListOfSpaceTimeLocations();
                         break;
 
-                    case TravelerAction.Exit:
+                    case PlayerAction.Exit:
                         _playingGame = false;
                         break;
 
@@ -167,37 +170,47 @@ namespace TheAionProject
         /// </summary>
         private void InitializeMission()
         {
-            Traveler traveler = _gameConsoleView.GetInitialTravelerInfo();
+            Player player = _gameConsoleView.GetInitialPlayerInfo();
 
-            _gameTraveler.Name = traveler.Name;
-            _gameTraveler.Age = traveler.Age;
-            _gameTraveler.Race = traveler.Race;
-            _gameTraveler.SpaceTimeLocationID = 1;
+            _gamePlayer.Name = player.Name;
+            _gamePlayer.Age = player.Age;
+            _gamePlayer.Race = player.Race;
+            _gamePlayer.Gender = player.Gender;
+            _gamePlayer.SpaceTimeLocationID = 1;
 
-            _gameTraveler.ExperiencePoints = 0;
-            _gameTraveler.Health = 100;
-            _gameTraveler.Lives = 3;
+            _gamePlayer.ExperiencePoints = 0;
+            _gamePlayer.Health = 100;
+            _gamePlayer.Lives = 3;
         }
 
         private void UpdateGameStatus()
         {
-            if (!_gameTraveler.HasVisited(_currentLocation.SpaceTimeLocationID))
+            if (!_gamePlayer.HasVisited(_currentLocation.SpaceTimeLocationID))
             {
                 //
                 // add new location to the list of visited locations if this is a first visit
                 //
-                _gameTraveler.SpaceTimeLocationsVisited.Add(_currentLocation.SpaceTimeLocationID);
+                _gamePlayer.SpaceTimeLocationsVisited.Add(_currentLocation.SpaceTimeLocationID);
 
                 //
                 // update experience points for visiting locations
                 //
-                _gameTraveler.ExperiencePoints += _currentLocation.ExperiencePoints;
+                _gamePlayer.ExperiencePoints += _currentLocation.ExperiencePoints;
 
                 //
                 // update health for visiting locations
                 //
-                _gameTraveler.Health += _currentLocation.Health;
+                _gamePlayer.Health += _currentLocation.Health;
             }
+        }
+
+        /// <summary>
+        /// Change Room Accessibility based on User's Current Location
+        /// </summary>
+        /// <param name="currentLocation"></param>
+        public void UpdateAccessibility()
+        {
+            _gameUniverse.UpdateLocation(_gamePlayer);
         }
 
         #endregion

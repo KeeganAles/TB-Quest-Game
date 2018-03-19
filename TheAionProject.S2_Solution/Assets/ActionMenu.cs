@@ -15,9 +15,9 @@ namespace TheAionProject
         {
             MenuName = "MissionIntro",
             MenuTitle = "",
-            MenuChoices = new Dictionary<char, TravelerAction>()
+            MenuChoices = new Dictionary<char, PlayerAction>()
                     {
-                        { ' ', TravelerAction.None }
+                        { ' ', PlayerAction.None }
                     }
         };
 
@@ -25,9 +25,9 @@ namespace TheAionProject
         {
             MenuName = "InitializeMission",
             MenuTitle = "Initialize Mission",
-            MenuChoices = new Dictionary<char, TravelerAction>()
+            MenuChoices = new Dictionary<char, PlayerAction>()
                 {
-                    { '1', TravelerAction.Exit }
+                    { '1', PlayerAction.Exit }
                 }
         };
 
@@ -35,14 +35,14 @@ namespace TheAionProject
         {
             MenuName = "MainMenu",
             MenuTitle = "Main Menu",
-            MenuChoices = new Dictionary<char, TravelerAction>()
+            MenuChoices = new Dictionary<char, PlayerAction>()
                 {
-                    { '1', TravelerAction.TravelerInfo },
-                    { '2', TravelerAction.LookAround },
-                    { '3', TravelerAction.Travel },
-                    { '4', TravelerAction.TravelerLocationsVisited },
-                    { '5', TravelerAction.ListSpaceTimeLocations },
-                    { '0', TravelerAction.Exit }
+                    { '1', PlayerAction.PlayerInfo },
+                    { '2', PlayerAction.LookAround },
+                    { '3', PlayerAction.Travel },
+                    { '4', PlayerAction.PlayerLocationsVisited },
+                    { '5', PlayerAction.ListSpaceTimeLocations },
+                    { '0', PlayerAction.Exit }
                 }
         };
 

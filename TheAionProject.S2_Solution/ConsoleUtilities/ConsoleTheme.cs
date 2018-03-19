@@ -39,15 +39,15 @@ namespace TheAionProject
         // menu box colors
         //
         public static ConsoleColor MenuBackgroundColor = ConsoleColor.Black;
-        public static ConsoleColor MenuForegroundColor = ConsoleColor.Green;
-        public static ConsoleColor MenuBorderColor = ConsoleColor.Blue;
+        public static ConsoleColor MenuForegroundColor = ConsoleColor.Red;
+        public static ConsoleColor MenuBorderColor = ConsoleColor.DarkBlue;
 
         //
         // message box colors
         //
         public static ConsoleColor MessageBoxBackgroundColor = ConsoleColor.Black;
-        public static ConsoleColor MessageBoxForegroundColor = ConsoleColor.Green;
-        public static ConsoleColor MessageBoxBorderColor = ConsoleColor.Blue;
+        public static ConsoleColor MessageBoxForegroundColor = ConsoleColor.Red;
+        public static ConsoleColor MessageBoxBorderColor = ConsoleColor.DarkBlue;
         public static ConsoleColor MessageBoxHeaderBackgroundColor = ConsoleColor.Black;
         public static ConsoleColor MessageBoxHeaderForegroundColor = ConsoleColor.Gray;
 
@@ -56,17 +56,17 @@ namespace TheAionProject
         //
         public static ConsoleColor StatusBoxBackgroundColor = ConsoleColor.Black;
         public static ConsoleColor StatusBoxForegroundColor = ConsoleColor.Green;
-        public static ConsoleColor StatusBoxBorderColor = ConsoleColor.Blue;
+        public static ConsoleColor StatusBoxBorderColor = ConsoleColor.DarkBlue;
         public static ConsoleColor StatusBoxHeaderBackgroundColor = ConsoleColor.Black;
-        public static ConsoleColor StatusBoxHeaderForegroundColor = ConsoleColor.Green;
+        public static ConsoleColor StatusBoxHeaderForegroundColor = ConsoleColor.Red;
 
         //
         // input box colors
         //
         public static ConsoleColor InputBoxBackgroundColor = ConsoleColor.Black;
-        public static ConsoleColor InputBoxForegroundColor = ConsoleColor.Green;
+        public static ConsoleColor InputBoxForegroundColor = ConsoleColor.Red;
         public static ConsoleColor InputBoxErrorMessageForegroundColor = ConsoleColor.Yellow;
-        public static ConsoleColor InputBoxBorderColor = ConsoleColor.Blue;
+        public static ConsoleColor InputBoxBorderColor = ConsoleColor.DarkBlue;
         public static ConsoleColor InputBoxHeaderBackgroundColor = ConsoleColor.Black;
         public static ConsoleColor InputBoxHeaderForegroundColor = ConsoleColor.Gray;
     }

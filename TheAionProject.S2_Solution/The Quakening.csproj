@@ -54,8 +54,8 @@
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\SpaceTimeLocation.cs" />
-    <Compile Include="Models\Traveler.cs" />
-    <Compile Include="Models\TravelerAction.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\PlayerAction.cs" />
     <Compile Include="Models\Universe.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -9,15 +9,14 @@ namespace TheAionProject
     /// <summary>
     /// the character class the player uses in the game
     /// </summary>
-    public class Traveler : Character
+    public class Player : Character
     {
         #region ENUMERABLES
-        public enum TravelDirection
+        public enum PlayerGender
         {
-            North,
-            East,
-            South,
-            West
+            None,
+            Male,
+            Female
         }
 
         #endregion
@@ -28,6 +27,7 @@ namespace TheAionProject
         private int _health;
         private int _lives;
         private List<int> _spaceTimeLocationsVisited;
+        private bool _gender;
 
         #endregion
 
@@ -58,17 +58,24 @@ namespace TheAionProject
             set { _spaceTimeLocationsVisited = value; }
         }
 
+
+        public bool Gender
+        {
+            get { return _gender; }
+            set { _gender = value; }
+        }
+
         #endregion
 
 
         #region CONSTRUCTORS
 
-        public Traveler()
+        public Player()
         {
             _spaceTimeLocationsVisited = new List<int>();
         }
 
-        public Traveler(string name, RaceType race, int spaceTimeLocationID) : base(name, race, spaceTimeLocationID)
+        public Player(string name, RaceType race, int spaceTimeLocationID) : base(name, race, spaceTimeLocationID)
         {
             _spaceTimeLocationsVisited = new List<int>();
         }

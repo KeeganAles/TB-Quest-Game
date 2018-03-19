@@ -151,6 +151,201 @@ namespace TheAionProject
             return spaceTimeLocation;
         }
 
+        public void UpdateLocation(Player currentLocation)
+        {
+            // For Start room / Room ID 1
+            if (currentLocation.SpaceTimeLocationID == 1)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 2)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+
+            // For Room ID 2
+            else if (currentLocation.SpaceTimeLocationID == 2)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 1 || l.SpaceTimeLocationID == 3 || l.SpaceTimeLocationID == 5)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+
+            // For Room ID 3
+            else if (currentLocation.SpaceTimeLocationID == 3)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 2 || l.SpaceTimeLocationID == 4)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+
+            // For Room ID 4
+            else if (currentLocation.SpaceTimeLocationID == 4)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 3)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+
+            // For Room ID 5
+            else if (currentLocation.SpaceTimeLocationID == 5)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 2 || l.SpaceTimeLocationID == 6)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+
+            // For Room ID 6
+            else if (currentLocation.SpaceTimeLocationID == 6)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 11 || l.SpaceTimeLocationID == 5 || l.SpaceTimeLocationID == 7)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+
+            // For Room ID 7
+            else if (currentLocation.SpaceTimeLocationID == 7)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 6 || l.SpaceTimeLocationID == 8 || l.SpaceTimeLocationID == 10)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+
+            // For Room ID 8
+            else if (currentLocation.SpaceTimeLocationID == 8)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 7 || l.SpaceTimeLocationID == 9)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+
+            // For Room ID 9
+            else if (currentLocation.SpaceTimeLocationID == 9)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 8)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+
+            // For Room ID 10
+            else if (currentLocation.SpaceTimeLocationID == 10)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 7)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+
+            // For Room ID 11
+            else if (currentLocation.SpaceTimeLocationID == 11)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 6 || l.SpaceTimeLocationID == 12)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+
+            // FOR ROOM ID 13
+            else if (currentLocation.SpaceTimeLocationID == 13)
+            {
+                foreach (SpaceTimeLocation l in SpaceTimeLocations)
+                {
+                    if (l.SpaceTimeLocationID == 12 || l.SpaceTimeLocationID == 14)
+                    {
+                        l.Accessible = true;
+                    }
+                    else
+                    {
+                        l.Accessible = false;
+                    }
+                }
+            }
+        }
+
         #endregion
     }
 }
