@@ -19,10 +19,10 @@ namespace TheAionProject
         public static string MissionIntro()
         {
             string messageBoxText =
-            "You have been hired by the Norlon Corporation to participate " +
-            "in its latest endeavor, the Aion Project. Your mission is to " +
-            "test the limits of the new Aion Engine and report back to " +
-            "the Norlon Corporation.\n" +
+            "You work in a high security IT office and you just survived " +
+            "an earthquake. You must find the key for the locked door that " +
+            "only your boss has, but he's dead. You must also save your 3 " +
+            "other coworkers that are alive before escaping...\n" +
             " \n" +
             "Press the Esc key to exit the game at any point.\n" +
             " \n" +
@@ -62,17 +62,17 @@ namespace TheAionProject
             return messageBoxText;
         }
 
-        public static string InitializeMissionGetTravelerName()
+        public static string InitializeMissionGetPlayerName()
         {
             string messageBoxText =
-                "Enter your name traveler.\n" +
+                "Enter your name, player.\n" +
                 " \n" +
                 "Please use the name you wish to be referred during your mission.";
 
             return messageBoxText;
         }
 
-        public static string InitializeMissionGetTravelerAge(string name)
+        public static string InitializeMissionGetPlayerAge(string name)
         {
             string messageBoxText =
                 $"Very good then, we will call you {name} on this mission.\n" +
@@ -84,10 +84,10 @@ namespace TheAionProject
             return messageBoxText;
         }
 
-        public static string InitializeMissionGetTravelerRace(Traveler gameTraveler)
+        public static string InitializeMissionGetPlayerRace(Player gamePlayer)
         {
             string messageBoxText =
-                $"{gameTraveler.Name}, it will be important for us to know your race on this mission.\n" +
+                $"{gamePlayer.Name}, it will be important for us to know your race on this mission.\n" +
                 " \n" +
                 "Enter your race below.\n" +
                 " \n" +
@@ -109,17 +109,30 @@ namespace TheAionProject
             return messageBoxText;
         }
 
-        public static string InitializeMissionEchoTravelerInfo(Traveler gameTraveler)
+        public static string InitializeMissionGetPlayerGender(string name)
         {
             string messageBoxText =
-                $"Very good then {gameTraveler.Name}.\n" +
+                $"{name}, in case of emergency, it may be necessary to identify your gender.\n" +
+                " \n" +
+                "Enter your gender below.\n" +
+                " \n" +
+                "Write \"true\" for Male or \"false\" for Female.";
+
+            return messageBoxText;
+        }
+
+        public static string InitializeMissionEchoPlayerInfo(Player gamePlayer)
+        {
+            string messageBoxText =
+                $"Very good then {gamePlayer.Name}.\n" +
                 " \n" +
                 "It appears we have all the necessary data to begin your mission. You will find it" +
                 " listed below.\n" +
                 " \n" +
-                $"\tTraveler Name: {gameTraveler.Name}\n" +
-                $"\tTraveler Age: {gameTraveler.Age}\n" +
-                $"\tTraveler Race: {gameTraveler.Race}\n" +
+                $"\tTraveler Name: {gamePlayer.Name}\n" +
+                $"\tTraveler Age: {gamePlayer.Age}\n" +
+                $"\tTraveler Race: {gamePlayer.Race}\n" +
+                $"\tTraveler Gender: {gamePlayer.Gender}\n" +
                 " \n" +
                 "Press any key to begin your mission.";
 
@@ -132,12 +145,13 @@ namespace TheAionProject
 
         #region MAIN MENU ACTION SCREENS
 
-        public static string TravelerInfo(Traveler gameTraveler, SpaceTimeLocation currentLocation)
+        public static string PlayerInfo(Player gamePlayer, SpaceTimeLocation currentLocation)
         {
             string messageBoxText =
-                $"\tTraveler Name: {gameTraveler.Name}\n" +
-                $"\tTraveler Age: {gameTraveler.Age}\n" +
-                $"\tTraveler Race: {gameTraveler.Race}\n" +
+                $"\tTraveler Name: {gamePlayer.Name}\n" +
+                $"\tTraveler Age: {gamePlayer.Age}\n" +
+                $"\tTraveler Race: {gamePlayer.Race}\n" +
+                $"\tTraveler Gender: {gamePlayer.Gender}\n" +
                 " \n" +
                 $"\tCurrent Location: {currentLocation.CommonName}\n" +
                 " \n";
@@ -165,10 +179,10 @@ namespace TheAionProject
             return messageBoxText;
         }
 
-        public static string Travel(Traveler gametraveler, List<SpaceTimeLocation> spaceTimeLocations)
+        public static string Travel(Player gamePlayer, List<SpaceTimeLocation> spaceTimeLocations)
         {
             string messageBoxText =
-                $"{gametraveler.Name}, Aion Base will need to know the name of the new location.\n" +
+                $"{gamePlayer.Name}, Aion Base will need to know the name of the new location.\n" +
                 " \n" +
                 "Enter the ID number of your desired location from the table below.\n" +
                 " \n" +
@@ -185,7 +199,7 @@ namespace TheAionProject
             string spaceTimeLocationList = null;
             foreach (SpaceTimeLocation spaceTimeLocation in spaceTimeLocations)
             {
-                if (spaceTimeLocation.SpaceTimeLocationID != gametraveler.SpaceTimeLocationID)
+                if (spaceTimeLocation.SpaceTimeLocationID != gamePlayer.SpaceTimeLocationID)
                 {
                     spaceTimeLocationList +=
                         $"{spaceTimeLocation.SpaceTimeLocationID}".PadRight(10) +
@@ -210,7 +224,7 @@ namespace TheAionProject
                 // display table header
                 //
                 "ID".PadRight(10) + "Name".PadRight(30) + "\n" +
-                "---".PadRight(10) + "----------------------".PadRight(30) +  "\n";
+                "---".PadRight(10) + "-------------------".PadRight(30) +  "\n";
 
             //
             // display all locations
@@ -260,13 +274,13 @@ namespace TheAionProject
 
         #endregion
 
-        public static List<string> StatusBox(Traveler traveler, Universe universe)
+        public static List<string> StatusBox(Player player, Universe universe)
         {
             List<string> statusBoxText = new List<string>();
 
-            statusBoxText.Add($"Experience Points: {traveler.ExperiencePoints}\n");
-            statusBoxText.Add($"Health: {traveler.Health}\n");
-            statusBoxText.Add($"Lives: {traveler.Lives}\n");
+            statusBoxText.Add($"Experience Points: {player.ExperiencePoints}\n");
+            statusBoxText.Add($"Health: {player.Health}\n");
+            statusBoxText.Add($"Lives: {player.Lives}\n");
 
             return statusBoxText;
         }
